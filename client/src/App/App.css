@@ -1,0 +1,12 @@
+
+
+.app{
+  height: 100%; 
+  background-image:url(../_components/logo-back.png) ;
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+

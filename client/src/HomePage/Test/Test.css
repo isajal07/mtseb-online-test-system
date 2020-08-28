@@ -1,0 +1,74 @@
+.Question {
+  margin-top: 20px;
+}
+
+.QuestionHeader {
+  margin-left: 5%;
+}
+
+.QuestionForm {
+  margin-left: 5%;
+}
+
+.QuestionResults {
+  text-align: center;
+}
+.result-details {
+  font-size: 10px;
+}
+
+/*KUN MOBIL*/
+@media screen and (max-width: 479px) and (min-width: 0) {
+  .hide-mobile {
+      display: none;
+  }
+
+  .progressIndex {
+      text-align: center;
+  }
+
+  .decrementIndex {
+      text-align: left;
+  }
+
+  .incrementIndex {
+      text-align: right;
+  }
+  .result-details {
+    font-size: 1px;
+  }
+}
+/*KUN DESKTOP*/
+@media screen and (min-width: 480px) {
+  .hide-desktop {
+      display: none;
+
+  }
+  .progressIndex {
+      text-align: center;
+  }
+
+  .decrementIndex {
+      text-align: left;
+  }
+
+  .incrementIndex {
+      text-align: right;
+  }
+  .result-details {
+    font-size: 6px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

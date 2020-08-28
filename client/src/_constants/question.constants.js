@@ -1,0 +1,4 @@
+export const questionConstants = {
+  CREATE_QUESTION:'CREATE_QUESTION',
+  DELETE_QUESTION:'DELETE_QUESTION'
+}
