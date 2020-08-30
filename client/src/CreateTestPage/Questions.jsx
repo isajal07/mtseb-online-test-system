@@ -20,6 +20,7 @@ import { testActions, questionActions, alertActions } from "../_actions";
 import { history } from '../_helpers';
 import { alert } from "../_reducers/alert.reducer";
 import './Style.css'
+// import { TeacherClock } from './StartClock'
 
 const Questions = ({ test }) => {
   const [inputs, setInputs] = useState({
@@ -36,7 +37,7 @@ const Questions = ({ test }) => {
   const dispatch = useDispatch();
   const testId = test.id;
   const [open, setOpen] = useState(false)
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [activeIndex, setActiveIndex] = useState()
 
   const deleteTest = () => {
     // console.log('DEleted')
@@ -91,6 +92,7 @@ const Questions = ({ test }) => {
   }
       const handleStartTest = () =>{
         dispatch(testActions.startTest(test.classNo))
+        //Code to start the countdown
       }
 
       const selectOption = [
@@ -115,7 +117,13 @@ const Questions = ({ test }) => {
          value: '3',
         }
       ]
-console.log(test.questions)
+
+
+    
+
+
+
+  
   return (
     <div>
       <Grid columns="equal" padded>
@@ -150,9 +158,23 @@ console.log(test.questions)
           </Grid.Column>
         </Grid.Row>
       </Grid>
-      <Button fluid corner='right' color="teal" onClick={handleStartTest}>
-        START TEST!
+
+
+
+
+      
+      
+    {/* <TeacherClock   /> */}
+
+
+      <Button fluid  size='medium' corner='right' color="teal" onClick={handleStartTest}>
+        {test.starttest ? <p>STOP</p>: <p> START!</p>}
       </Button>
+
+
+
+
+     
       <br/>
      <h3> Questions:</h3>
       <Segment>
@@ -237,7 +259,7 @@ console.log(test.questions)
           name="opt1"
           value={opt1}
           label="Option A:"
-          placeholder="Enter the Option A here..."
+          placeholder="Enter Option A here..."
           error={submitted && !opt1 ? { content: "Option A is required!" } : false}
         />
         <Form.Input
@@ -245,7 +267,7 @@ console.log(test.questions)
           name="opt2"
           value={opt2}
           label="Option B:"
-          placeholder="Enter the Option B here..."
+          placeholder="Enter Option B here..."
           error={submitted && !opt2 ? { content: "Option B is required!" } : false}
         />
         <Form.Input
@@ -253,7 +275,7 @@ console.log(test.questions)
           name="opt3"
           value={opt3}
           label="Option C:"
-          placeholder="Enter the Option C here..."
+          placeholder="Enter Option C here..."
           error={submitted && !opt3 ? { content: "Option C is required!" } : false}
         />
         <Form.Input
@@ -261,7 +283,7 @@ console.log(test.questions)
           name="opt4"
           value={opt4}
           label="Option D:"
-          placeholder="Enter the Option D here..."
+          placeholder="Enter Option D here..."
           error={submitted && !opt1 ? { content: "Option D is required!" } : false}
         />
 
@@ -270,7 +292,7 @@ console.log(test.questions)
         <Dropdown
           onChange={handleDropDownChange}
           options={selectOption}
-          placeholder="Choose an option"
+          placeholder="Choose a correct option"
           selection
           value={correctAnswer}
           name="correctAnswer"

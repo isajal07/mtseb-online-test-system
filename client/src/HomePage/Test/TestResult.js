@@ -25,7 +25,7 @@ import {
 
 const TestResult = (props) => {
   const {teacher, subject, classNo, questions, rightAnswers, yourAns} = props.history.location.state
-
+  console.log('yourAns===>>>', yourAns)
   const [activeIndex, setActiveIndex] = useState(0)
 
   // useEffect(()=>{
@@ -42,6 +42,7 @@ const TestResult = (props) => {
 
     setActiveIndex(newIndex)
   }
+
 
 
     return (

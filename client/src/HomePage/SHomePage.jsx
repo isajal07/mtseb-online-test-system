@@ -35,13 +35,19 @@ function SHomePage() {
     // const alert = useSelector(state => state.alert)
     const dispatch = useDispatch();
     //   console.log(test)
+
     useEffect(() => {
+    
       dispatch(testActions.getTestByClass(classNo))
       setLoading(false);
-    }, []);
-    
-   console.log('Online?', window.navigator.onLine)
+    },[]);
 
+    
+   useEffect(()=>{
+    dispatch(userActions.isOnline(true))
+   },[])
+    
+    
     return (
       <div className="styled-container">
         <NavBar name={name} classNo={classNo} roll={roll} />
@@ -52,11 +58,14 @@ function SHomePage() {
                 <Segment className='segment-style'>
                   {loading ? (
                     <p>Loading....</p>
-                  ) : test ? (
-                    test.starttest === "true" ? (
-                      // <Test test={test} />
-                      <Segment style={{fontSize:'16px'}}>
+                    ) : test ? (
+                      test.starttest === true ? (
+                        // <Test test={test} />
+                        <Segment style={{fontSize:'16px'}}>
                         <Grid columns='equal' textAlign='center' stackable>
+
+
+
                           <Grid.Row>
                             <Grid.Column>
                             Subject:{test.subject}
@@ -76,7 +85,7 @@ function SHomePage() {
                       <p>Test is ready! Please wait until teacher starts the test!</p>
                     )
                   ) : (
-                    <p>No test at the moment</p>
+                    <p>No test at the moment.</p>
                   )}
                 </Segment>
               </Grid.Column>

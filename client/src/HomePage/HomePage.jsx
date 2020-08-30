@@ -22,6 +22,7 @@ import "./Style.css";
 import { history } from "../_helpers";
 import { CreateTestPage } from "../CreateTestPage";
 import ResultTable from "./ResultTable";
+import OnlineTable from './OnlineTable'
 import { NavBar, Footer } from "../_components";
 
 function HomePage() {
@@ -37,6 +38,8 @@ function HomePage() {
     dispatch(userActions.delete(id));
   }
 
+  // const onlinee = useSelector(state => state.isOnline);
+  //   console.log('online',onlinee)
   return (
     <div class="styled-container">
       <NavBar name={name} role={role} />
@@ -55,26 +58,11 @@ function HomePage() {
                 <p>{test ? <ResultTable test={test} /> : <p>No test results...</p>}</p>
               </Segment>
             </Grid.Column>
-            <Grid.Column mobile={16} tablet={16} computer={4} textAlign='center'>
-              <Segment>
-                Students Online <br />
-                Students Online <br />
-                Students Online <br />
-                Students Online <br />
-                Students Online <br />
-                Students Online <br />
-                Students Online <br />
-                Students Online <br />
-                Students Online <br />
-                Students Online <br />
-                Students Online <br />
-                Students Online <br />
-                Students Online <br />
-                Students Online <br />
-                Students Online <br />
-                Students Online <br />
-                Students Online <br />
-                Students Online <br />
+            <Grid.Column mobile={16} tablet={16} computer={4} textAlign='left'>
+              <Segment stacked={false}>
+              <h4>  Students Online </h4>
+              <Divider/>  
+                <OnlineTable/>
               </Segment>
             </Grid.Column>
           </Grid.Row>

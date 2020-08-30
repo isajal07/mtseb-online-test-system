@@ -11,6 +11,7 @@ import { RegisterPage, SRegisterPage } from '../RegisterPage';
 import {LandingPage} from '../LandingPage'
 import TestResult from '../HomePage/Test/TestResult'
 import Test from '../HomePage/Test/Test'
+
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 import './App.css'

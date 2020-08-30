@@ -174,7 +174,7 @@ router.get('/:classNo',authorize(), async(req, res) => {
       .populate('teacher',['name','id'])
     if(!test) return res.status(400).json({ msg: 'No tests!'})
     
-    
+
     const studentView = [{
       id:test.id,
       starttest: test.starttest,
@@ -184,7 +184,8 @@ router.get('/:classNo',authorize(), async(req, res) => {
       teacherid:test.teacher.id,
       date: test.teacher.date,
       questions: test.questions,
-      correctAnswer: test.questions.map(a => a.correctAnswer)
+      correctAnswer: test.questions.map(a => a.correctAnswer),
+      answers:test.answers
       //   questions: { question: test.questions.map(a=>a.question),
       //                 options: test.questions.map(a=>a.options)}
     }]
@@ -251,6 +252,8 @@ router.post('/answer/:tid',  authorize(), async (req,res) => {
     const student = await Student.findById(req.user.id)
     const test = await Test.findById(req.params.tid)
 
+    console.log(student.name)
+    
     const newScore = {
       student:req.user.id,
       name:student.name,
@@ -259,8 +262,15 @@ router.post('/answer/:tid',  authorize(), async (req,res) => {
       score:req.body.score,
       total:req.body.total
     }
-
+    
+    console.log(!test.answers.some(a=>a.name === student.name))
+   
+    if(test.answers.some(a=>a.name === student.name)){
+     return res.status(500).json({msg:'Duplicate value'})
+    }
+  
     test.answers.push(newScore)
+  
     await test.save()
     
     res.json(test)
@@ -276,7 +286,14 @@ router.post('/answer/:tid',  authorize(), async (req,res) => {
 //@access Private
 router.put('/starttest/:classNo',authorize(), async(req, res) => {
   try{
-    const test = await Test.findOneAndUpdate({classNo: req.params.classNo},{$set:{starttest:true}})
+    const test = await Test.findOne({classNo: req.params.classNo})
+
+
+    
+      const newTest = await Test.findOneAndUpdate({classNo: req.params.classNo},{$set:{starttest:!test.starttest}})
+    
+   
+    
 
     res.json("Change successful.")
   

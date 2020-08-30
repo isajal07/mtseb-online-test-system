@@ -2,15 +2,49 @@ import { userConstants } from '../_constants';
 import { userService } from '../_services';
 import { alertActions } from './';
 import { history } from '../_helpers';
+import Student from '../../../models/Student';
 
 export const userActions = {
     login,
     slogin,
     logout,
     register,
-    sregister
-    
+    sregister,
+    isOnline,
+    getOnlineStudents
 };
+
+function isOnline(online) {
+    return dispatch => {
+        userService.isOnline(online)
+            .then(
+                isonline => dispatch({
+                    type:userConstants.IS_ONLINE,
+                    payload: isonline
+                }),
+                error=>{
+                  dispatch(alertActions.error(error.toString()));
+                }
+            )
+    }
+}
+
+function getOnlineStudents() {
+    return dispatch => {
+        userService.getOnlineStudents()
+            .then(
+                students => dispatch({
+                    type:userConstants.GET_ONLINE_STUDENTS,
+                    payload: students
+                }),
+                error=>{
+                  dispatch(alertActions.error(error.toString()));
+                }
+            )
+    }
+}
+
+
 
 //Teacher's login
 function login(username, password) {

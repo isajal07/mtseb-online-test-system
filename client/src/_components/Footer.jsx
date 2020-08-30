@@ -15,7 +15,6 @@ import {
   Select,
   Button
 } from "semantic-ui-react";
-import logo1 from './logo-1.png'
 
 const Footer = () => {
   return (

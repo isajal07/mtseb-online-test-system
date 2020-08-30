@@ -91,7 +91,7 @@ router.post('/login', (req,res) => {
           jwt.sign(
             payload,
             secret,
-            {expiresIn: 3600},
+            {expiresIn: 86400},
             (err, token) => {
               res.json({
                 success: true,
@@ -128,7 +128,6 @@ router.get('/all',authorize('teacher'),async (req,res) => {
     const teachers = await Teacher.find()
     .populate('test')
     res.json(teachers)
-    console.log('from teachersss',teachers.map(a=>a.test))
   } catch(err) {
     console.log(err.message)
     res.status(500).send('Server Error!')

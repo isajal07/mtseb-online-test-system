@@ -64,7 +64,7 @@ const TestSchema  = new Schema({
   } 
   }],
   starttest:{
-    type: String,
+    type: Boolean,
     default: false
   },
   date:{

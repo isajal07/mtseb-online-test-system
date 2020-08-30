@@ -24,7 +24,6 @@ function SLoginPage() {
     const { classNo,roll, password } = inputs;
     const loggingIn = useSelector(state => state.authentication.loggingIn);
     const dispatch = useDispatch();
-
     // reset login status
     useEffect(() => { 
         dispatch(userActions.logout()); 

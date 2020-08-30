@@ -1,5 +1,8 @@
 import config from 'config';
 import { authHeader } from '../_helpers';
+import axios from 'axios'
+import { saveAs } from 'file-saver';
+
 
 export const userService = {
     login,
@@ -15,6 +18,10 @@ export const userService = {
     deleteQuestion,
     getTestByClass,
     submitScore,
+    isOnline,
+    getOnlineStudents,
+    profileCard,
+    teacherCard
 };
 //Teacher's login
 function login(username, password) {
@@ -33,6 +40,30 @@ function login(username, password) {
             return user;
         });
 }
+
+//Get online students
+function getOnlineStudents() {
+    const requestOptions = {
+        method: 'GET',
+        headers: { ...authHeader(),'Content-Type': 'application/json' }
+    };
+
+    return fetch('http://localhost:5000/api/students/all', requestOptions)
+        .then(handleResponse)
+}
+
+//Change the statues of the online
+function isOnline(online) {
+    const requestOptions = {
+        method: 'PUT',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+    };
+
+    return fetch(`http://localhost:5000/api/students/${online}`, requestOptions)
+        .then(handleResponse)
+}
+
+
 
 //Student's login
 function slogin(classNo,roll, password) {
@@ -55,6 +86,7 @@ function slogin(classNo,roll, password) {
 function logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('user');
+
 }
 
 // function getAll() {
@@ -198,6 +230,35 @@ function submitScore(testId, score, total){
 
     return fetch(`http://localhost:5000/api/test/answer/${testId}`,requestOptions).then(handleResponse)
 }
+
+function profileCard (data) {
+
+
+   return axios.post('http://localhost:5000/api/filedownload/studentcard', data)
+        .then(() => axios.get('http://localhost:5000/api/filedownload/profilecard', { responseType: 'blob' }))
+        .then((res) => {
+          const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
+  
+          saveAs(pdfBlob, 'PROFILE_CARD.pdf');
+        })
+        .catch(err=>console.log(err))
+  
+    }
+
+    function teacherCard (data) {
+
+
+        return axios.post('http://localhost:5000/api/filedownload/teachercard', data)
+             .then(() => axios.get('http://localhost:5000/api/filedownload/teachercard', { responseType: 'blob' }))
+             .then((res) => {
+               const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
+       
+               saveAs(pdfBlob, 'TEACHER_CARD.pdf');
+             })
+             .catch(err=>console.log(err))
+       
+         }
+
 
 function handleResponse(response) {
     return response.text().then(text => {

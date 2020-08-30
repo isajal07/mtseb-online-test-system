@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import { useDispatch } from "react-redux";
 import { Button } from 'semantic-ui-react';
 import {Link} from 'react-router-dom'
@@ -28,8 +28,12 @@ const Endtest = (props) => {
 
     const handleClick = () => {
         dispatch(testActions.submitScore(testId, score, total))
-
     }
+    // props.sendData(testId, score, total)
+    
+    //Sending the data to Parent(Test) if time out
+    
+
     return(
 
         <div className="QuestionResults">

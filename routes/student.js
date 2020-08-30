@@ -61,7 +61,7 @@ router.post('/register/:role',(req,res) => {
 //@route POST api/student/login
 //@desc Login student
 //@access Public
-router.post('/login', (req,res) => {
+router.post('/login', async (req,res) => {
   const { errors, isValid } = validateStudentLoginInput(req.body)
 
   //Check validation
@@ -72,7 +72,6 @@ router.post('/login', (req,res) => {
   // const classss = req.body.class;
   // const roll = req.body.roll;
   const password = req.body.password;
- 
   //Find user by email
   Student.findOne({classNo: req.body.classNo, roll: req.body.roll})
     .then(user => {
@@ -82,7 +81,7 @@ router.post('/login', (req,res) => {
       }
       //Check password
       bcrypt.compare(password, user.password)
-      .then(isMatch => {
+      .then(async isMatch => {
         if(isMatch) {
           //User match
           const payload = { id: user.id, name: user.name, role: user.role } //Create JWT Payload
@@ -90,7 +89,7 @@ router.post('/login', (req,res) => {
           jwt.sign(
             payload,
             secret,
-            {expiresIn: 3600},
+            {expiresIn: 86400},
             (err, token) => {
               res.json({
                 success: true,
@@ -99,9 +98,12 @@ router.post('/login', (req,res) => {
                 classNo: user.classNo,
                 roll:user.roll, 
                 role: user.role,
+                isOnline:user.isOnline,
                 token: 'Bearer ' + token
               })
           })
+        
+
         } else {
           errors.password = 'Password incorrect.'
           return res.status(400).json(errors)
@@ -115,14 +117,31 @@ router.post('/login', (req,res) => {
 //@route GET api/students/all
 //@desc Display all the student
 //@access Private
-router.get('/all',authorize(),async (req,res,next) => {
+router.get('/all',authorize('teacher'),async (req,res,next) => {
   try{
     
     const students = await Student.find()
     res.json(students)
+    // console.log(students.map(a=>a.name))
   } catch(err) {
     console.log(err.message)
     res.status(500).send('Server Error!')
+  }
+})
+//@route PUT api/students
+//@desc Change the online status.
+//@access Private
+router.put('/:onlinecheck',authorize(), async(req, res) => {
+  try{
+     await Student.findByIdAndUpdate({_id:req.user.id},{$set:{isOnline:req.params.onlinecheck}})
+          res.json("You online status changed!")
+  } catch(err) {
+    console.error(err.message)
+    if(err.kind == 'ObjectId') {
+      return res.status(400).json({msg: 'No tests!'})
+    }
+    res.status(500).send('Server Error!')
+  
   }
 })
 
