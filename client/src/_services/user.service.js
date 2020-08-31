@@ -181,11 +181,11 @@ function startTest(classNo){
 }
 
 //Create Question
-function createQuestion(question,options,correctAnswer,desc){
+function createQuestion(question,img,options,correctAnswer,desc){
     const requestOptions = {
         method: 'POST',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question,options,correctAnswer,desc})
+        body: JSON.stringify({ question,img,options,correctAnswer,desc})
     };
 
     return fetch('http://localhost:5000/api/test/questions',requestOptions).then(handleResponse)

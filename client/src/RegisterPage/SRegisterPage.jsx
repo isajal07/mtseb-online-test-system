@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './Style.css'
-import { userActions ,pdfActions} from '../_actions';
+import { history } from '../_helpers'
+
+import { userActions ,pdfActions, alertActions} from '../_actions';
 import {
     Button,
     Form,
@@ -15,6 +17,16 @@ import {
   } from "semantic-ui-react";
 import { NavBar , Footer } from '../_components'
 function SRegisterPage() {
+
+  const alert = useSelector(state => state.alert);
+
+    useEffect(() => {
+        history.listen((location, action) => {
+            // clear alert on location change
+            dispatch(alertActions.clear());
+        });
+    }, []);
+
     const [user, setUser] = useState({
         name: '',
         classNo: '',
@@ -39,18 +51,23 @@ function SRegisterPage() {
     function handleSubmit(e) {
         e.preventDefault();
 
-        setSubmitted(true);
         if (user.name && user.classNo && user.roll && user.password && user.password2) {
           
-          dispatch(pdfActions.profileCard(user))
-          
+          setSubmitted(true);
           dispatch(userActions.sregister(user));
-        }
-    }
 
+        }}
+        
+  if(alert.type === 'teal') {
+          dispatch(pdfActions.profileCard(user))
+          history.push('/success')
+            }
+
+  
     return (
       <div className='registration'>
         <Grid textAlign="center" style={{ marginTop: "10%"}} verticalAlign="middle">
+
       <Grid.Column style={{ maxWidth: 400 }}>
       <h2 as='h2' textAlign="center" className='reg-header' style={{Color:'rgb(82, 44, 0)'}}> 
            Student Registration
@@ -148,14 +165,16 @@ function SRegisterPage() {
             Keep it safe and secure with you.
             </Message>
 
-            {/* Remove this button */}
-              {" "}
-              <Link to="/" className="btn btn-link">
-                ⬅️ BACK
-              </Link>
+            <Grid textAlign='center' verticalAlign='middle'>
+            
+            {alert.message && <Message  size='large' color={alert.type}>
+         <p>{alert.message}</p>
+          </Message>}
+             </Grid>
                 </Segment>
         </Form>
       </Grid.Column>
+
     </Grid>
     </div>
     );

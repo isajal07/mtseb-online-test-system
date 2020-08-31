@@ -25,12 +25,10 @@ import {
 
 const TestResult = (props) => {
   const {teacher, subject, classNo, questions, rightAnswers, yourAns} = props.history.location.state
-  console.log('yourAns===>>>', yourAns)
+  console.log('yourAns in testResult', yourAns)
   const [activeIndex, setActiveIndex] = useState(0)
 
-  // useEffect(()=>{
-    
-  // },[])
+  const yourAnss = yourAns
   const [correctAnswer, setCorrectAnswer] = useState('')
   
   const name = useSelector((state) => state.authentication.user.name);
@@ -42,7 +40,8 @@ const TestResult = (props) => {
 
     setActiveIndex(newIndex)
   }
-
+  const testSubmitted = useSelector(state => state.test.testSubmitted)
+  console.log('Test Submitted?',testSubmitted)
 
 
     return (
@@ -55,24 +54,11 @@ const TestResult = (props) => {
                 <Segment>
                   <Grid columns="equal" textAlign='center' stackable>
                     <Grid.Row>
-                      <Grid.Column>
-                      <Button
-                  onClick={()=>history.push('/shome')}
-                  // size={buttonType}
-                  // labelPosition="left"
-                  icon="left chevron"
-                  content="Go back"
-                  // className={"leftButton"}
-                />
-                      </Grid.Column>
                   <Grid.Column>
                   <h1><u>
                     Result: {rightAnswers}/{questions.length}
-                   </u> 
+                   </u>
                   </h1>
-                  </Grid.Column>
-                  <Grid.Column>
-                   Click here to <br/> download your result.
                   </Grid.Column>
                   </Grid.Row>
                   </Grid>
@@ -107,6 +93,9 @@ const TestResult = (props) => {
                               {obj.question}
                             </Accordion.Title>
                             <Accordion.Content active={activeIndex === counter}>
+                              {
+                                obj.image ? <img className='file-image' src={obj.image}/> : null
+                              }<br/>
                               <ol type="A">
                                 {" "}
                                 {obj.options.map((a, i) => (

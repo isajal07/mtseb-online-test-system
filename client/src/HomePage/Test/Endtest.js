@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from "react";
+import React,{useState, useEffect,} from "react";
 import { useDispatch } from "react-redux";
 import { Button } from 'semantic-ui-react';
 import {Link} from 'react-router-dom'
@@ -26,12 +26,11 @@ const Endtest = (props) => {
 
     const dispatch = useDispatch();
 
-    const handleClick = () => {
+    function handleClick(){
         dispatch(testActions.submitScore(testId, score, total))
     }
-    // props.sendData(testId, score, total)
     
-    //Sending the data to Parent(Test) if time out
+
     
 
     return(
@@ -44,7 +43,7 @@ const Endtest = (props) => {
                    <Link to={{
                        pathname: '/result',
                        state:{teacher,subject,classNo,questions ,rightAnswers, yourAns, quiz,}
-                   }}><Button onClick={handleClick} >VIEW RESULT</Button></Link>
+                   }}><Button onClick={handleClick()} >VIEW RESULT</Button></Link>
                </div>
             </div>
         </div>

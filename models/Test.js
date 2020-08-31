@@ -24,6 +24,9 @@ const TestSchema  = new Schema({
       type: String,
       required: true
     },
+    image: {
+      type: String,
+    }, 
     options:{
       type:[String],
     },

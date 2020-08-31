@@ -20,7 +20,8 @@ import { testActions, questionActions, alertActions } from "../_actions";
 import { history } from '../_helpers';
 import { alert } from "../_reducers/alert.reducer";
 import './Style.css'
-// import { TeacherClock } from './StartClock'
+import { TeacherClock } from './StartClock'
+import axios from 'axios'
 
 const Questions = ({ test }) => {
   const [inputs, setInputs] = useState({
@@ -38,6 +39,9 @@ const Questions = ({ test }) => {
   const testId = test.id;
   const [open, setOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState()
+
+  const [file, setFile] = useState(null)
+  const [img, setImg] = useState(null)
 
   const deleteTest = () => {
     // console.log('DEleted')
@@ -85,7 +89,7 @@ const Questions = ({ test }) => {
     setSubmitted(true)
 
     if(question && options && correctAnswer && desc){
-      dispatch(questionActions.createQuestion(question,options,correctAnswer,desc))
+      dispatch(questionActions.createQuestion(question,img,options,correctAnswer,desc))
     }
     
     
@@ -119,8 +123,30 @@ const Questions = ({ test }) => {
       ]
 
 
-    
+      
 
+    
+      const onImageFormSubmit = (e) =>{
+        e.preventDefault() // Stop form submit
+    
+        const url = 'https://api.imgur.com/3/image/';
+        let formData = new FormData();
+        formData.append('image',file)
+        const config = {
+            headers: {
+                'content-type': 'multipar',
+                'Authorization': 'Client-ID 74e09b95b31f454'
+            }
+        }
+        return  axios.post(url, formData, config).then((response)=>{
+          setImg(response.data.data.link)
+        })
+      
+      }
+    
+      const onChangeImage = (e) => {
+        setFile(e.target.files[0])
+      }
 
 
   
@@ -164,11 +190,11 @@ const Questions = ({ test }) => {
 
       
       
-    {/* <TeacherClock   /> */}
 
 
-      <Button fluid  size='medium' corner='right' color="teal" onClick={handleStartTest}>
-        {test.starttest ? <p>STOP</p>: <p> START!</p>}
+      <Button fluid basic size='medium' corner='right' color="black" onClick={handleStartTest}>
+        {test.starttest ? <p>Click to STOP the test!</p>: <p> Click to START the test!</p>}
+    <TeacherClock   />
       </Button>
 
 
@@ -201,13 +227,18 @@ const Questions = ({ test }) => {
                               index={counter}
                               onClick={handleClick}
                               >
-                              {counter+1}. {obj.question}
-                              
-                              <Icon style={{right:'0', position: 'absolute', marginRight:'25px',marginTop: '-5px'}} color='red'circular name='trash alternate' onClick={() => deleteQuestion(obj._id)}/>
+                              {counter+1}. {obj.question}<br/>
+                             
+                              <Icon color='red'circular name='trash alternate' onClick={() => deleteQuestion(obj._id)}/>
                               
                             
                             </Accordion.Title>
+
                             <Accordion.Content active={activeIndex === counter}>
+                            {
+                                obj.image ? <div><img className='file-image' src={obj.image}/></div>: null
+                              }
+                              <br/>
                               <ol type="A">
                                 {" "}
                                 {obj.options.map((a, i) => (
@@ -243,7 +274,8 @@ const Questions = ({ test }) => {
       
     <b>  Add Questions:</b>
       <Form>
-        <Form.Input
+
+        <TextArea
           onChange={handleQuestionChange}
           name="question"
           value={question}
@@ -254,6 +286,15 @@ const Questions = ({ test }) => {
               : false
           }
         />
+        <Segment>
+         <form onSubmit={onImageFormSubmit}>
+        <b>Image Upload: </b>
+        <Input name='img' type="file" onChange={onChangeImage} /><br/>
+        {img?<img className='file-image' src={img}/> : null} <br/>
+        <Button color='teal' type="submit">Upload</Button>
+      </form>
+      </Segment>
+
         <Form.Input
           onChange={handleQuestionChange}
           name="opt1"

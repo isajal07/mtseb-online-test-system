@@ -22,7 +22,7 @@ const Footer = () => {
         inverted
         vertical
         color="grey"
-        style={{ position: "absolute", bottom: "0", width: "100%" }}
+        style={{ position: "absolute", bottom: "0", width: "100%"  }}
       >
         <Container textAlign="center">
           <Divider section color='white'/> 

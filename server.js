@@ -5,7 +5,7 @@ const cors = require('cors')
 const teachers = require('./routes/teachers')
 const test = require('./routes/test')
 const students = require('./routes/student')
-const filedownload = require('./routes/filedownload')
+const filedownload = require('./filedownload')
 const errorHandler = require('./_helpers/error-handler');
 
 
@@ -37,6 +37,7 @@ app.use('/api/teachers', teachers)
 app.use('/api/test', test)
 app.use('/api/students',students)
 app.use('/api/filedownload',filedownload)
+
 
 const port = process.env.PORT || 5000;
 

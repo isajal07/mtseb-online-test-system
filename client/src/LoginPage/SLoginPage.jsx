@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { userActions } from '../_actions';
+import { history } from '../_helpers'
+import { userActions,alertActions } from '../_actions';
 import {
     Button,
     Form,
@@ -14,7 +14,18 @@ import {
     Loader,
   } from "semantic-ui-react";
 
+
 function SLoginPage() {
+  const alert = useSelector(state => state.alert);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        history.listen((location, action) => {
+            // clear alert on location change
+            dispatch(alertActions.clear());
+        });
+    }, []);
+
     const [inputs, setInputs] = useState({
         classNo: '',
         roll:'',
@@ -23,7 +34,6 @@ function SLoginPage() {
     const [submitted, setSubmitted] = useState(false);
     const { classNo,roll, password } = inputs;
     const loggingIn = useSelector(state => state.authentication.loggingIn);
-    const dispatch = useDispatch();
     // reset login status
     useEffect(() => { 
         dispatch(userActions.logout()); 
@@ -44,17 +54,18 @@ function SLoginPage() {
     }
 
     return (
-        <Grid textAlign="center" style={{ marginTop: "10%" }} verticalAlign="middle">
-      <Grid.Column style={{ maxWidth: 400 }}>
-        <Header as="h2" color="teal" textAlign="center">
-           Students Login
-        </Header>
+        <Grid textAlign="center" style={{ margin: "10px", backgroundColor:'rgb(230, 225, 225)' }} verticalAlign="middle">
+      <Grid.Column style={{ maxWidth: 350,  }}>
+      <h2 as='h2' textAlign="center" className='reg-header' style={{Color:'rgb(82, 44, 0)'}}> 
+           Student Login
+        </h2>
         <Form name="form" onSubmit={handleSubmit}>
           <Segment stacked>
           <Form.Input
               fluid
               icon="user"
               iconPosition="left"
+              label='Class'
               placeholder="Enter your class..."
               name="classNo"
               value={classNo}
@@ -68,6 +79,7 @@ function SLoginPage() {
         <Form.Input
               fluid
               icon="user"
+              label='Roll no.'
               iconPosition="left"
               placeholder="Enter your roll..."
               name="roll"
@@ -84,6 +96,7 @@ function SLoginPage() {
               icon="lock"
               iconPosition="left"
               type="password"
+              label='Password'
               placeholder="Enter your password..."
               name="password"
               value={password}
@@ -95,24 +108,18 @@ function SLoginPage() {
               }
             />
                 
-            <Button color="teal" fluid size="large">
+            <Button inverted style={{backgroundColor:'rgb(82, 44, 0)'}} fluid size="large">
               {loggingIn? <Loader active inline/>:
               'Login'}
             </Button>
+            <br/>
+            <Grid textAlign='center' verticalAlign='middle'>
+            
+            {alert.message && <Message  size='large' color={alert.type}>
+         <p>{alert.message}</p>
+          </Message>}
+             </Grid>
 
-            <Message>
-              Not yet registered?{" "}
-              <Link to="/sregister" color="teal">
-               Click here to Log In
-              </Link>
-            </Message>
-
-            {/* <Message> */}
-              {" "}
-              <Link to="/" className="btn btn-link">
-                ⬅️ BACK
-              </Link>
-            {/* </Message> */}
 
     
 

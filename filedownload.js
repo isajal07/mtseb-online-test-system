@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const pdf = require('html-pdf')
-const studentcard =require('../documents/studentcard')
-const teachercard = require('../documents/teachercard')
+const studentcard =require('./documents/studentcard')
+const teachercard = require('./documents/teachercard')
 
 
 
@@ -29,7 +29,7 @@ router.post('/studentcard',(req,res)=>{
 //@desc Send the profilecard
 //@access Public
 router.get('/profilecard', (req, res) => {
-    res.sendFile(`/Users/isajal07/mtseb-online-test/PROFILE_CARD.pdf`)
+    res.sendFile(`${__dirname}/PROFILE_CARD.pdf`)
 })
 
 //@route POST api/filedownload/teachercard
@@ -53,7 +53,7 @@ router.post('/teachercard',(req,res)=>{
 //@desc Send the profilecard
 //@access Public
 router.get('/teachercard', (req, res) => {
-    res.sendFile(`/Users/isajal07/mtseb-online-test/TEACHER_CARD.pdf`)
+    res.sendFile(`${__dirname}/TEACHER_CARD.pdf`)
 })
 
 

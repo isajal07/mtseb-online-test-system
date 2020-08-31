@@ -7,7 +7,8 @@ import { alertActions } from '../_actions';
 import { PrivateRoute } from '../_components';
 import { HomePage,SHomePage } from '../HomePage';
 import { LoginPage, SLoginPage } from '../LoginPage';
-import { RegisterPage, SRegisterPage } from '../RegisterPage';
+import { RegisterPage, SRegisterPage,Success} from '../RegisterPage';
+import ImageUpload from '../HomePage/Test/ImageUpload'
 import {LandingPage} from '../LandingPage'
 import TestResult from '../HomePage/Test/TestResult'
 import Test from '../HomePage/Test/Test'
@@ -17,15 +18,7 @@ import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui
 import './App.css'
 
 function App() {
-    const alert = useSelector(state => state.alert);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        history.listen((location, action) => {
-            // clear alert on location change
-            dispatch(alertActions.clear());
-        });
-    }, []);
+    
 
     return (
             <div className='app'>
@@ -41,16 +34,11 @@ function App() {
                             <Route path="/slogin" component={SLoginPage}/>
                             <Route path="/register" component={RegisterPage} />
                             <Route path="/sregister" component={SRegisterPage}/>
-                            
+                            <Route path='/success' component={Success}/>
+                            <Route path='/image' component={ImageUpload}/>
                             <Redirect from="*" to="/" />
                         </Switch>
                     </Router>
-                    <Grid textAlign='center' verticalAlign='middle'>
-            
-                   {alert.message && <Message  size='large' color={alert.type}>
-                <p>{alert.message}</p>
-  </Message>}
-                    </Grid>
             </div>
     );
 }

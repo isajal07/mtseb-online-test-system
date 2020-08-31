@@ -1,4 +1,6 @@
 import React from 'react';
+import { Grid } from 'semantic-ui-react';
+import { StudentClock } from '../../CreateTestPage/StartClock';
 
 
 const questionheader = ({header}) => {
@@ -6,9 +8,11 @@ const questionheader = ({header}) => {
     return(
         <div className="QuestionHeader">
             <div className="column">
-                <h2>Teacher: {header.teacher} ||  Subject: {header.subject} || Class:{header.classNo}</h2>
-{
-}
+
+              <center>
+                  <h2><StudentClock/></h2>
+            </center>  
+                
             </div>
         </div>
     )

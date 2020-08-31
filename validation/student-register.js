@@ -20,13 +20,25 @@ module.exports = function validateStudentRegisterInput(data) {
   if(Validator.isEmpty(data.name)) {
     errors.name = 'Name field is required.'
   }
+  // if(!Validator.isAlpha(data.name)) {
+  //   errors.name = 'Name must contain only alpabets!';
+  // }
 
-  if(Validator.isEmpty(data.roll)) {
-    errors.roll = 'Roll field is required.'
+  // if(Validator.isEmpty(data.roll)) {
+  //   errors.roll = 'Roll field is required.'
+  // }
+
+  if(!Validator.isNumeric(data.roll)) {
+    errors.roll = 'Roll must be a number'
   }
-  if(Validator.isEmpty(data.classNo)) {
-    errors.classNo = 'Class field is required.'
+  // if(Validator.isEmpty(data.classNo)) {
+  //   errors.classNo = 'Class field is required.'
+  // }
+
+  if(!Validator.isNumeric(data.classNo)) {
+    errors.classNo = 'Class must be a number'
   }
+
 
   if(Validator.isEmpty(data.password)) {
     errors.password = 'Password field is required.'

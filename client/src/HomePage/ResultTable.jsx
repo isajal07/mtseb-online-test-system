@@ -76,7 +76,7 @@ const ResultTable = ({test}) => {
         ))}
       </Table.Body>
     </Table>
-    <div>Click here to download this test result.⬇</div>
+    {/* <div>Click here to download this test result.⬇</div> */}
     </div>
   )
   

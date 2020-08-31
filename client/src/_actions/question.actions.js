@@ -10,9 +10,9 @@ export const questionActions = {
 }
 
 //Action to create the question
-function createQuestion(question,options,correctAnswer,desc){
+function createQuestion(question,img,options,correctAnswer,desc){
   return async dispatch => {
-    userService.createQuestion(question,options,correctAnswer,desc)
+    userService.createQuestion(question,img,options,correctAnswer,desc)
       .then(
         question=>
         dispatch({

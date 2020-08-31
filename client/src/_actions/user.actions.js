@@ -106,7 +106,6 @@ function register(user) {
             .then(
                 user => { 
                     dispatch(success());
-                    history.push('/login');
                     dispatch(alertActions.success('Registration successful'));
                 },
                 error => {
@@ -129,7 +128,6 @@ function sregister(user) {
             .then(
                 user => { 
                     dispatch(success());
-                    history.push('/slogin');
                     dispatch(alertActions.success('Registration successful'));
                 },
                 error => {

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-
+import  Test  from '../HomePage/Test/Test'
 
 
  class Clock extends Component {
@@ -25,13 +25,13 @@ import React, {Component} from 'react'
   
   onSubmit(event) {
     event.preventDefault()
-      this.props.onSetCountdown(parseInt(4, 10)); //No of seconds to changeeeee
+      this.props.onSetCountdown(parseInt(15, 10)); //No of seconds to changeeeee
   }
   
   render() {
     return (
       <form ref="form" onSubmit={this.onSubmit.bind(this)}>
-        <input type="submit" value="Start"></input>
+        <button type="submit" value="Start">Click here!</button>
       </form>
     )
   }
@@ -43,7 +43,7 @@ export class TeacherClock extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 4, //initial count to changeeeee
+      count: 15, //initial count to changeeeee
       running: false,
     }
   }
@@ -174,7 +174,7 @@ export class StudentClock extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 15, //initial count to changeeeee
+      count: 13, //initial count to changeeeee
       running: false,
     }
   }
@@ -216,7 +216,7 @@ export class StudentClock extends Component {
 
 componentDidMount(){
   this.setState({
-        count: 15,
+        count: 13,
         running: true
       })
 }

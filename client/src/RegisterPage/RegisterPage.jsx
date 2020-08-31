@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
-import { userActions, pdfActions } from "../_actions";
+import { history } from '../_helpers'
+import { userActions, pdfActions,alertActions } from "../_actions";
 import './Style.css'
 import {
   Button,
@@ -16,6 +16,17 @@ import {
 } from "semantic-ui-react";
 
 function RegisterPage() {
+
+  const alert = useSelector(state => state.alert);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        history.listen((location, action) => {
+            // clear alert on location change
+            dispatch(alertActions.clear());
+        });
+    }, []);
+
   const [user, setUser] = useState({
     name: "",
     username: "",
@@ -24,7 +35,6 @@ function RegisterPage() {
   });
   const [submitted, setSubmitted] = useState(false);
   const registering = useSelector((state) => state.registration.registering);
-  const dispatch = useDispatch();
 
   // reset login status
   useEffect(() => {
@@ -54,7 +64,9 @@ function RegisterPage() {
            Teacher Registration
         </h2>
         <Form name="form" onSubmit={handleSubmit}>
+        
           <Segment stacked>
+          
             <Form.Input
               fluid
               label="Full name"
@@ -125,6 +137,8 @@ function RegisterPage() {
               Register
             </Button>
 
+          
+
             
             <Message>
             <p>*Note: A pdf will be downloaded, containing all your registration info after you click 'Register'.</p>
@@ -132,11 +146,13 @@ function RegisterPage() {
             </Message>
 
 {/* Remove this BACK!!!!!!!!!!!!!!!! */}
-              {" "}
-              <Link to="/" className="btn btn-link">
-                ⬅️ BACK
-              </Link>
-
+            
+              <Grid textAlign='center' verticalAlign='middle'>
+            
+            {alert.message && <Message  size='large' color={alert.type}>
+         <p>{alert.message}</p>
+          </Message>}
+             </Grid>
           </Segment>
         </Form>
       </Grid.Column>

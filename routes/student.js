@@ -29,7 +29,7 @@ router.post('/register/:role',(req,res) => {
   Student.findOne({classNo: req.body.classNo, roll: req.body.roll})
     .then(student => {
       if(student) {
-        return res.status(400).json({student:'Student already exists'})
+        return res.status(400).json({student:'Student already exists!'})
       } else {
         const newStudent = new Student({
           name:req.body.name,

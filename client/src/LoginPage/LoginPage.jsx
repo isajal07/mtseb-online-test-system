@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { userActions } from '../_actions';
+import { history } from '../_helpers'
+import { userActions, alertActions } from '../_actions';
 import {
     Button,
     Form,
@@ -42,14 +42,22 @@ function LoginPage() {
             dispatch(userActions.login(username, password));
         }
     }
+    const alert = useSelector(state => state.alert);
+
+    useEffect(() => {
+        history.listen((location, action) => {
+            // clear alert on location change
+            dispatch(alertActions.clear());
+        });
+    }, []);
 
     return (
         
-<Grid textAlign="center" style={{ marginTop: "10%" }} verticalAlign="middle">
-      <Grid.Column style={{ maxWidth: 400 }}>
-        <Header as="h2" color="teal" textAlign="center">
+<Grid textAlign="center" style={{ margin: "10px",backgroundColor:'rgb(230, 225, 225)'}} verticalAlign="middle">
+      <Grid.Column style={{ maxWidth: 350 }}>
+      <h2 as='h2' textAlign="center" className='reg-header' style={{Color:'rgb(82, 44, 0)'}}> 
            Teacher Login
-        </Header>
+        </h2>
         <Form name="form" onSubmit={handleSubmit}>
           <Segment stacked>
 
@@ -59,6 +67,7 @@ function LoginPage() {
               iconPosition="left"
               placeholder="Enter your username..."
               name="username"
+              label='Username'
               value={username}
               onChange={handleChange}
               error={
@@ -73,6 +82,7 @@ function LoginPage() {
               icon="lock"
               iconPosition="left"
               type="password"
+              label='Password'
               placeholder="Enter your password..."
               name="password"
               value={password}
@@ -85,24 +95,19 @@ function LoginPage() {
             />
 
 
-            <Button color="teal" fluid size="large">
+            <Button inverted style={{backgroundColor:'rgb(82, 44, 0)'}} fluid size="large">
               {loggingIn? <Loader active inline/>:
               'Login'}
-            </Button>
+            </Button><br/>
+            <Grid textAlign='center' verticalAlign='middle'>
+            
+            {alert.message && <Message  size='large' color={alert.type}>
+         <p>{alert.message}</p>
+          </Message>}
+             </Grid>
 
-            <Message>
-              Not yet registered?{" "}
-              <Link to="/register" color="teal">
-               Click here to register your account.
-              </Link>
-            </Message>
 
-            {/* <Message> */}
-              {" "}
-              <Link to="/" className="btn btn-link">
-                ⬅️ BACK
-              </Link>
-            {/* </Message> */}
+            
           </Segment>
         </Form>
       </Grid.Column>

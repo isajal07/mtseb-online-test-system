@@ -1,11 +1,11 @@
 
 
 
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect,forwardRef, useRef, useImperativeHandle  } from 'react'
 import { useDispatch,useSelector } from "react-redux";
 import './Test.css';
 import QuestionHeader from './QuestionHeader';
-import { Divider,Segment,Button } from 'semantic-ui-react';
+import { Divider,Segment,Button,Message } from 'semantic-ui-react';
 import QuestionForm from './QuestionForm';
 import QuestionButtons from './QuestionButtons';
 import Endtest from './Endtest'
@@ -13,7 +13,7 @@ import TestResult from './TestResult'
 import { userActions, testActions } from '../../_actions';
 import { NavBar, Footer} from '../../_components'
 import { history } from '../../_helpers';
-import { StudentClock } from '../../CreateTestPage/StartClock';
+// import { StudentClock } from '../../CreateTestPage/StartClock';
 
 export default function Test (props)  {
 
@@ -26,10 +26,11 @@ export default function Test (props)  {
     const dispatch = useDispatch();
     useEffect(() => {
         // window.location.reload(false);
+        
         dispatch(testActions.getTestByClass(classNo))
         setLoading(false);
     }, []);
-
+    console.log('test props',props)
     const test = props.history.location.state
     const [index,setIndex] = useState(0)
     const [isActive, setIsActive] = useState(true)
@@ -39,7 +40,7 @@ export default function Test (props)  {
     const questions = test.test.questions
     
     const [quiz, setQuiz] = useState(questions)
-    
+    const testSubmitted = useSelector(state => state.test.testSubmitted)
     const endQuiz = () => {
         setIsActive(false)
         console.log("ENDER QUIZ")
@@ -99,29 +100,20 @@ export default function Test (props)  {
 
     const lengthoftest = test.test.answers
    
-console.log(test.test.answers.map(a=>a.name.answers))
+
+    // setTimeout(()=>{
+            
+        
+    //         dispatch(testActions.submitScore(testId,total,score))
+    //         history.push({pathname:'/result', state:{teacher,subject,classNo,questions ,rightAnswers, yourAns} })
+    //         console.log('Test Submitted?',testSubmitted)
+
     
-    useEffect(()=>{
-        setTimeout(()=>{
+    // },15000 )
 
-                // console.log((test.test.answers.some(a=>a.name === name)))
-            dispatch(testActions.submitScore(testId,total,score))
-            history.push({pathname:'/result', state:{teacher,subject,classNo,questions ,rightAnswers, yourAns} })
+        
+    // const childRef = useRef()
 
-        },15000 )
-    }
-    ,[])
-    
-    console.log((test.test.answers.some(a=>a.name === name)))
-
-
-
-//    console.log('teacher=>>',test.test.teacher)
-//    console.log('subject=>>',test.test.subject)
-//    console.log('classNo=>>',test.test.classNo)
-//    console.log('questions=>>',test.test.questions)
-//    console.log('rightAnswers==>',score)
-   console.log('yourAns==>',yourAns)
     
 
     
@@ -141,12 +133,14 @@ console.log(test.test.answers.map(a=>a.name.answers))
                   icon="left chevron"
                   content="Go back"
                     />
+                    {alert.message && <Message  size='large' color={alert.type}>
+         <p>{alert.message}</p>
+          </Message>}
                    </center>:
-                   <Segment>
+                   <Segment style={{margin:'40px 40px', padding:'20px'}}>
                         {
                             isActive ?
                             <div>
-                                <StudentClock/>
                                 <QuestionHeader header={test.test}/>
                                 < Divider />
                                 < QuestionForm questions={quiz}
@@ -170,14 +164,13 @@ console.log(test.test.answers.map(a=>a.name.answers))
                             isActive === false ?
                                 <div>
                                     <Endtest wrongAnswers={wrongAnswers}
-                            questions={quiz} test={test} yourAnswer={answers} />
+                            questions={quiz} test={test} yourAnswer={answers} ref={childRef}/>
                                     
                                 </div> : null
                         }
                     </Segment>
                     
                     }
-                    <Footer/>
                 </div>
                     </>
         )

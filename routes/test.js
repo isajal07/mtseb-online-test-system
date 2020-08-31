@@ -84,7 +84,8 @@ router.post('/questions',  authorize('teacher'), async (req,res) => {
         question: req.body.question,
         options: req.body.options,
         correctAnswer: correctAns,
-         desc: req.body.desc
+         desc: req.body.desc,
+         image: req.body.img
       }
 
       try {
@@ -184,6 +185,7 @@ router.get('/:classNo',authorize(), async(req, res) => {
       teacherid:test.teacher.id,
       date: test.teacher.date,
       questions: test.questions,
+      img:test.image,
       correctAnswer: test.questions.map(a => a.correctAnswer),
       answers:test.answers
       //   questions: { question: test.questions.map(a=>a.question),
@@ -227,6 +229,7 @@ router.get('/t/:tid',authorize(), async(req, res) => {
       teacherid:test.teacher.id,
       date: test.teacher.date,
       questions: test.questions,
+      img:test.image,
       answers:test.answers
     //   questions: { question: test.questions.map(a=>a.question),
     //                 options: test.questions.map(a=>a.options)}
@@ -266,14 +269,14 @@ router.post('/answer/:tid',  authorize(), async (req,res) => {
     console.log(!test.answers.some(a=>a.name === student.name))
    
     if(test.answers.some(a=>a.name === student.name)){
-     return res.status(500).json({msg:'Duplicate value'})
+     return res.status(500).json('Duplicate value')
     }
   
     test.answers.push(newScore)
   
     await test.save()
     
-    res.json(test)
+    res.json(res.status(200).json('Test submitted!'))
   } catch(err) {
     console.log(err.message)
     res.status(500).send('Server error')
