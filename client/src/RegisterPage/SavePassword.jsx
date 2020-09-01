@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   Divider,
   Form,
@@ -12,38 +12,35 @@ import {
   Accordion,
   Message,
   Icon,
-  TextArea
+  TextArea,
 } from "semantic-ui-react";
 
 const SavePassword = () => {
-
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <div>
       <Modal
-              trigger={
-                <Button basic color="red">
-                  Delete Test!
-                </Button>
-              }
-              size="mini"
-              onClose={() => setOpen(false)}
-              onOpen={() => setOpen(true)}
-              open={open}
-            >
-              <Modal.Header>
-                Are you sure you want to delete the test?
-              </Modal.Header>
-              <Modal.Actions>
-                <Button onClick={() => setOpen(false)}>No</Button>
-                {/* <Button color="red" onClick={() => deleteTest()}> */}
-                  Yes
-                {/* </Button> */}
-              </Modal.Actions>
-            </Modal>
+        trigger={
+          <Button basic color="red">
+            Delete Test!
+          </Button>
+        }
+        size="mini"
+        onClose={() => setOpen(false)}
+        onOpen={() => setOpen(true)}
+        open={open}
+      >
+        <Modal.Header>Are you sure you want to delete the test?</Modal.Header>
+        <Modal.Actions>
+          <Button onClick={() => setOpen(false)}>No</Button>
+          {/* <Button color="red" onClick={() => deleteTest()}> */}
+          Yes
+          {/* </Button> */}
+        </Modal.Actions>
+      </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default SavePassword
+export default SavePassword;

@@ -121,13 +121,3 @@ function submitScore(testId, score, total) {
   }
   
 }
-
-//Enable/Disable the 'next' button on the test
-// function radioDisable(onChecked) {
-//   return async dispatch => {
-//     dispatch({
-//       type:testConstants.RADIO_DISABLE,
-//       payload: onChecked
-//     })
-//   }
-// }

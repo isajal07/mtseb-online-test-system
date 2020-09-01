@@ -15,7 +15,7 @@ export function alert(state = {}, action) {
     case alertConstants.CLEAR:
       return {};
     case alertConstants.TEST_GIVEN:
-      return{
+      return {
         type: 'teal',
         message: action.message
       }

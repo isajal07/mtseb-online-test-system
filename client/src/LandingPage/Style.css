@@ -1,19 +1,15 @@
-.landing{
+.landing {
   background:
-        /* top, transparent black, faked with gradient */ 
-        linear-gradient(
-          rgb(102, 66, 0), 
-          rgba(0, 0, 0, 0.7)
-        ),
-        /* bottom, image */
-        url(http://fc02.deviantart.net/fs71/i/2011/274/6/f/ocean__sky__stars__and_you_by_muddymelly-d4bg1ub.png);
-    }
+        /* top, transparent black, faked with gradient */ linear-gradient(
+      rgb(102, 66, 0),
+      rgba(0, 0, 0, 0.7)
+    ),
+    /* bottom, image */
+      url(http://fc02.deviantart.net/fs71/i/2011/274/6/f/ocean__sky__stars__and_you_by_muddymelly-d4bg1ub.png);
+}
 
-
-
-
-.logo{
-  margin-top:50px;
+.logo {
+  margin-top: 50px;
   margin-bottom: 90px;
   opacity: 0.8;
 }
@@ -42,18 +38,18 @@
   color: white;
 }
 
-@media only screen and (max-width:620px) {
+@media only screen and (max-width: 620px) {
   /* For mobile phones: */
- 
-  .login-button{
-  font-size: 13px;
-  left: 70px;
-  padding: 13px 27px;
+
+  .login-button {
+    font-size: 13px;
+    left: 70px;
+    padding: 13px 27px;
   }
 }
 
-.landing-footer{
-  color:rgb(197, 187, 187);
+.landing-footer {
+  color: rgb(197, 187, 187);
   text-align: center;
   padding-bottom: 2px;
 }

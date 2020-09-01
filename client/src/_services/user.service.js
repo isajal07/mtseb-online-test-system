@@ -45,7 +45,7 @@ function login(username, password) {
 function getOnlineStudents() {
     const requestOptions = {
         method: 'GET',
-        headers: { ...authHeader(),'Content-Type': 'application/json' }
+        headers: { ...authHeader(), 'Content-Type': 'application/json' }
     };
 
     return fetch('http://localhost:5000/api/students/online', requestOptions)
@@ -66,11 +66,11 @@ function isOnline(online) {
 
 
 //Student's login
-function slogin(classNo,roll, password) {
+function slogin(classNo, roll, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ classNo,roll, password })
+        body: JSON.stringify({ classNo, roll, password })
     };
 
     return fetch('http://localhost:5000/api/students/login', requestOptions)
@@ -89,23 +89,6 @@ function logout() {
 
 }
 
-// function getAll() {
-//     const requestOptions = {
-//         method: 'GET',
-//         headers: authHeader()
-//     };
-
-//     return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
-// }
-
-// function getById(id) {
-//     const requestOptions = {
-//         method: 'GET',
-//         headers: authHeader()
-//     };
-
-//     return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
-// }
 
 //Teacher's register
 function register(user) {
@@ -130,35 +113,35 @@ function sregister(user) {
 }
 
 //function get test for teacher by his id
-function getTest(teacherId){
+function getTest(teacherId) {
     const requestOptions = {
         method: 'GET',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
         // body: JSON.stringify({ subject, classNo })
     };
-    return fetch(`http://localhost:5000/api/test/t/${teacherId}`,requestOptions).then(handleResponse)
+    return fetch(`http://localhost:5000/api/test/t/${teacherId}`, requestOptions).then(handleResponse)
 
 }
 //function get test for student by his classNo
-function getTestByClass(classNo){
+function getTestByClass(classNo) {
     const requestOptions = {
         method: 'GET',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
         // body: JSON.stringify({ subject, classNo })
     };
-    return fetch(`http://localhost:5000/api/test/${classNo}`,requestOptions).then(handleResponse)
+    return fetch(`http://localhost:5000/api/test/${classNo}`, requestOptions).then(handleResponse)
 
 }
 
 //Create test
-function createTest(subject,classNo) {
+function createTest(subject, classNo) {
     const requestOptions = {
         method: 'POST',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
         body: JSON.stringify({ subject, classNo })
     };
 
-    return fetch('http://localhost:5000/api/test',requestOptions).then(handleResponse)
+    return fetch('http://localhost:5000/api/test', requestOptions).then(handleResponse)
 }
 
 //Delete test
@@ -168,27 +151,27 @@ function deleteTest(testId) {
         headers: { ...authHeader(), 'Content-Type': 'application/json' }
     };
 
-    return fetch(`http://localhost:5000/api/test/${testId}`,requestOptions).then(handleResponse)
+    return fetch(`http://localhost:5000/api/test/${testId}`, requestOptions).then(handleResponse)
 }
 //Start Test
-function startTest(classNo){
+function startTest(classNo) {
     const requestOptions = {
         method: 'PUT',
         headers: { ...authHeader(), 'Content-Type': 'application/json' }
     };
 
-    return fetch(`http://localhost:5000/api/test/starttest/${classNo}`,requestOptions).then(handleResponse)
+    return fetch(`http://localhost:5000/api/test/starttest/${classNo}`, requestOptions).then(handleResponse)
 }
 
 //Create Question
-function createQuestion(question,img,options,correctAnswer,desc){
+function createQuestion(question, img, options, correctAnswer, desc) {
     const requestOptions = {
         method: 'POST',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question,img,options,correctAnswer,desc})
+        body: JSON.stringify({ question, img, options, correctAnswer, desc })
     };
 
-    return fetch('http://localhost:5000/api/test/questions',requestOptions).then(handleResponse)
+    return fetch('http://localhost:5000/api/test/questions', requestOptions).then(handleResponse)
 }
 
 //Delete Question
@@ -197,67 +180,44 @@ function deleteQuestion(testId, queId) {
         method: 'DELETE',
         headers: { ...authHeader(), 'Content-Type': 'application/json' }
     };
-    return fetch(`http://localhost:5000/api/test/${testId}/${queId}`,requestOptions).then(handleResponse)
+    return fetch(`http://localhost:5000/api/test/${testId}/${queId}`, requestOptions).then(handleResponse)
 }
 
-// function update(user) {
-//     const requestOptions = {
-//         method: 'PUT',
-//         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-//         body: JSON.stringify(user)
-//     };
-
-//     return fetch(`${config.apiUrl}/users/${user.id}`, requestOptions).then(handleResponse);;
-// }
-
-// prefixed function name with underscore because delete is a reserved word in javascript
-// function _delete(id) {
-//     const requestOptions = {
-//         method: 'DELETE',
-//         headers: authHeader()
-//     };
-
-//     return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(handleResponse);
-// }
 
 //Submit Score
-function submitScore(testId, score, total){
+function submitScore(testId, score, total) {
     const requestOptions = {
         method: 'POST',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify({ score, total})
+        body: JSON.stringify({ score, total })
     };
 
-    return fetch(`http://localhost:5000/api/test/answer/${testId}`,requestOptions).then(handleResponse)
+    return fetch(`http://localhost:5000/api/test/answer/${testId}`, requestOptions).then(handleResponse)
 }
 
-function profileCard (data) {
-
-
-   return axios.post('http://localhost:5000/api/filedownload/studentcard', data)
+function profileCard(data) {
+    return axios.post('http://localhost:5000/api/filedownload/studentcard', data)
         .then(() => axios.get('http://localhost:5000/api/filedownload/profilecard', { responseType: 'blob' }))
         .then((res) => {
-          const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
-  
-          saveAs(pdfBlob, 'PROFILE_CARD.pdf');
+            const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
+
+            saveAs(pdfBlob, 'PROFILE_CARD.pdf');
         })
-        .catch(err=>console.log(err))
-  
-    }
+        .catch(err => console.log(err))
 
-    function teacherCard (data) {
+}
 
+function teacherCard(data) {
+    return axios.post('http://localhost:5000/api/filedownload/teachercard', data)
+        .then(() => axios.get('http://localhost:5000/api/filedownload/teachercard', { responseType: 'blob' }))
+        .then((res) => {
+            const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
 
-        return axios.post('http://localhost:5000/api/filedownload/teachercard', data)
-             .then(() => axios.get('http://localhost:5000/api/filedownload/teachercard', { responseType: 'blob' }))
-             .then((res) => {
-               const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
-       
-               saveAs(pdfBlob, 'TEACHER_CARD.pdf');
-             })
-             .catch(err=>console.log(err))
-       
-         }
+            saveAs(pdfBlob, 'TEACHER_CARD.pdf');
+        })
+        .catch(err => console.log(err))
+
+}
 
 
 function handleResponse(response) {
@@ -270,7 +230,7 @@ function handleResponse(response) {
                 location.reload(true);
             }
 
-             const error = Object.values(data) || response.statusText;
+            const error = Object.values(data) || response.statusText;
             return Promise.reject(error);
         }
 

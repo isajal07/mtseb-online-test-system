@@ -1,19 +1,10 @@
 import React from 'react'
 import './Style.css'
 import {
-  Menu,
   Segment,
   Container,
-  Icon,
-  Grid,
-  Header,
   List,
   Divider,
-  Image,
-  Form,
-  Input,
-  Select,
-  Button
 } from "semantic-ui-react";
 
 const Footer = () => {

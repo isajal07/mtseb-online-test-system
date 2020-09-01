@@ -1,15 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const passport =require('passport')
-
-//Post model
-// const Question = require('../models/Question')
 const Test = require('../models/Test')
-const Starttest = require('../models/Starttest')
-//Profile model
-const Teacher = require('../models/Teacher')
 const Student = require('../models/Student')
-const { restart } = require('nodemon')
 const authorize = require('../_helpers/authorize')
 
 

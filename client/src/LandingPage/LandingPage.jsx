@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Header, Grid, Segment, Container, Modal, Icon, Divider } from "semantic-ui-react";
+import React, { useState } from 'react';
+import { Grid, Container, Modal, Divider } from "semantic-ui-react";
 import { LoginPage ,SLoginPage} from '../LoginPage'
 import logo from '../_components/logogo.png'
 import './Style.css';
