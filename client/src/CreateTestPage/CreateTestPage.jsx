@@ -17,7 +17,7 @@ const CreateTestPage = ({ teacherId }) => {
   });
   
   
-  const [hello, setHello] = useState('hello'); //Helper garbage constant to change the state.
+  const [hello, setHello] = useState('hello'); //Helper dummy constant to change the state.
   
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(
@@ -40,7 +40,7 @@ const CreateTestPage = ({ teacherId }) => {
     },[hello]);
     
 
-//Helper function to update the state
+//Helper dummy function to update the state
 const updateState = () => {
   dispatch(testActions.getTest(teacherId));
   setLoading(false)
@@ -56,15 +56,18 @@ const updateState = () => {
     // e.preventDefault();
     setSubmitted(true);
     if (subject && classNo) {
-      dispatch(testActions.createTest(subject, classNo));
       setHello('hi')
+      dispatch(testActions.createTest(subject, classNo));
       updateState()
     }
     
   };
- 
-  function TestForm() {
-    return (
+
+  const TestForm = () => 
+      
+        test ?
+        <p>Loading...</p>
+        :
       <>
         <h2>Create Test</h2>
         <Divider width />
@@ -103,17 +106,23 @@ const updateState = () => {
           
         </Form>
       </>
-    );
-  }
+             
+    
+          
   return (
     <>
-       {loading ? (
-        <p>Loading...</p>
-      ) : test ? (
+       {/* { test ? 
         <Questions test={test} updateState={updateState}/>
-      ) : (
+       : 
+
+        <p></p>
+      } */}
+      {
+        test ? 
+        <Questions test={test} updateState={updateState}/>
+         : 
         TestForm()
-      )} 
+      } 
 
       
       

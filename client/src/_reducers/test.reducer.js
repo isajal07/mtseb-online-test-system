@@ -1,6 +1,6 @@
 import {testConstants} from '../_constants'
 
-const initialState ={ test :{}, message:{},testByClass:{}, loading:true, testSubmitted: false }
+const initialState ={ test :{}, message:{},testByClass:{}, loading:true}
 
 export function test(state = initialState, action) {
 
@@ -37,9 +37,6 @@ export function test(state = initialState, action) {
               testByClass:action.payload
             }
           case testConstants.SUBMIT_TEST:
-            return {
-              testSubmitted: true
-            }
           // case testConstants.RADIO_DISABLE:
           //   return {
           //     disable: action.payload

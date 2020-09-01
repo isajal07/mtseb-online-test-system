@@ -48,7 +48,7 @@ function getOnlineStudents() {
         headers: { ...authHeader(),'Content-Type': 'application/json' }
     };
 
-    return fetch('http://localhost:5000/api/students/all', requestOptions)
+    return fetch('http://localhost:5000/api/students/online', requestOptions)
         .then(handleResponse)
 }
 

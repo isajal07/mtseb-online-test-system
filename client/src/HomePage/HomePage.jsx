@@ -32,11 +32,7 @@ function HomePage() {
   const teacherId = useSelector((state) => state.authentication.user.id);
   const test = useSelector((state) => state.test.test[0]);
 
-  const dispatch = useDispatch();
-
-  function handleDeleteUser(id) {
-    dispatch(userActions.delete(id));
-  }
+    console.log('from home',test)
 
   // const onlinee = useSelector(state => state.isOnline);
   //   console.log('online',onlinee)
@@ -47,21 +43,19 @@ function HomePage() {
       <Container className="AppContent">
         <Grid>
           <Grid.Row>
-            <Grid.Column mobile={16} tablet={16} computer={12}>
+            <Grid.Column mobile={16} tablet={16} computer={11}>
               <Segment>
                 {" "}
                 <CreateTestPage teacherId={teacherId} />{" "}
               </Segment>
               <Segment>
-                <h2>Result Table</h2>
-                <Divider/>
+                
                 <p>{test ? <ResultTable test={test} /> : <p>No test results...</p>}</p>
               </Segment>
             </Grid.Column>
-            <Grid.Column mobile={16} tablet={16} computer={4} textAlign='left'>
+            <Grid.Column mobile={16} tablet={16} computer={5} textAlign='left'>
               <Segment stacked={false}>
-              <h4>  Students Online </h4>
-              <Divider/>  
+              
                 <OnlineTable/>
               </Segment>
             </Grid.Column>

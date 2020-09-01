@@ -26,7 +26,7 @@ const Endtest = (props) => {
 
     const dispatch = useDispatch();
 
-    function handleClick(){
+    const  handleClick = () => {
         dispatch(testActions.submitScore(testId, score, total))
     }
     
@@ -43,7 +43,7 @@ const Endtest = (props) => {
                    <Link to={{
                        pathname: '/result',
                        state:{teacher,subject,classNo,questions ,rightAnswers, yourAns, quiz,}
-                   }}><Button onClick={handleClick()} >VIEW RESULT</Button></Link>
+                   }}><Button onClick={handleClick} >VIEW RESULT</Button></Link>
                </div>
             </div>
         </div>

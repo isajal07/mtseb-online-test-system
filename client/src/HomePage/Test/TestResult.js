@@ -33,6 +33,10 @@ const TestResult = (props) => {
   
   const name = useSelector((state) => state.authentication.user.name);
   const roll = useSelector((state) => state.authentication.user.roll);
+
+  useEffect(()=>{
+    history.goForward();
+  },[])
   
   const handleClick = (e,titleProps) =>{
     const { index } = titleProps

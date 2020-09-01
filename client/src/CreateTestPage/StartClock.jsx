@@ -1,6 +1,10 @@
 import React, {Component} from 'react'
 import  Test  from '../HomePage/Test/Test'
-
+import {
+  Divider,
+  Form,
+  Button
+} from "semantic-ui-react";
 
  class Clock extends Component {
   format(time) {
@@ -31,7 +35,7 @@ import  Test  from '../HomePage/Test/Test'
   render() {
     return (
       <form ref="form" onSubmit={this.onSubmit.bind(this)}>
-        <button type="submit" value="Start">Click here!</button>
+        <Button style={{marginTop:'20px'}} basic primary type="submit" value="Start">Start the test!</Button>
       </form>
     )
   }
@@ -66,14 +70,14 @@ export class TeacherClock extends Component {
     }, 1000);
   }
   
-  // handleStop() {
-  //   if(this.timer) {
-  //     clearInterval(this.timer);
-  //     this.setState(
-  //       {running:false}
-  //     );
-  //   }
-  // }
+  handleStop() {
+    if(this.timer) {
+      clearInterval(this.timer);
+      this.setState(
+        {running:false}
+      );
+    }
+  }
   
   
   handleCountdown(seconds) {
@@ -89,7 +93,7 @@ export class TeacherClock extends Component {
       <div className="container">
         <Clock time={count}/>
         <Input onSetCountdown={this.handleCountdown.bind(this)}/>
-        {/* <Button label="stop" onClickHandler={this.handleStop.bind(this)}/> */}
+        <Button type='stop' style={{marginTop:'10px'}} basic color='red' onClickHandler={this.handleStop.bind(this)}>Stop the test!</Button>
       </div>
     )
   }

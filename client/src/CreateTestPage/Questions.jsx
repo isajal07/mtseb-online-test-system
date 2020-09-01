@@ -13,7 +13,8 @@ import {
   Accordion,
   Message,
   Icon,
-  TextArea
+  TextArea,
+  Link
 } from "semantic-ui-react";
 import { testActions, questionActions, alertActions } from "../_actions";
 // import { question } from "../_reducers/question.reducer";
@@ -22,6 +23,7 @@ import { alert } from "../_reducers/alert.reducer";
 import './Style.css'
 import { TeacherClock } from './StartClock'
 import axios from 'axios'
+import ResultTable from '../HomePage/ResultTable'
 
 const Questions = ({ test }) => {
   const [inputs, setInputs] = useState({
@@ -39,7 +41,7 @@ const Questions = ({ test }) => {
   const testId = test.id;
   const [open, setOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState()
-
+  const [start, setStart] = useState(test.starttest? 'STOP':'START')
   const [file, setFile] = useState(null)
   const [img, setImg] = useState(null)
 
@@ -56,11 +58,14 @@ const Questions = ({ test }) => {
   const deleteQuestion = (queId) => {
     console.log("testID--->", testId, "questionID-->", queId);
     dispatch(questionActions.deleteQuestion(testId, queId));
+    setTimeout(()=>{
+      dispatch(testActions.getTest(test.teacherid))
+    },500)
   };
 
-  // useEffect(()=>{
-  //      updateState()       
-  //   },[])
+  
+         
+    
 
   const handleQuestionChange = (e) => {
     const { name, value } = e.target;
@@ -90,13 +95,34 @@ const Questions = ({ test }) => {
 
     if(question && options && correctAnswer && desc){
       dispatch(questionActions.createQuestion(question,img,options,correctAnswer,desc))
+      
+      setTimeout(()=>{
+        dispatch(testActions.getTest(test.teacherid))
+        setInputs({question:'',
+      opt1:'',
+      opt2:'',
+      opt3:'',
+      opt4:'',
+      correctAnswer:'',
+      desc:''})
+      },500)
+
+      
     }
     
     
   }
       const handleStartTest = () =>{
         dispatch(testActions.startTest(test.classNo))
+        if(start === 'START') 
+        {
+        setStart('STOP')
+        }
+        else {
+          setStart('START')
+        }
         //Code to start the countdown
+        
       }
 
       const selectOption = [
@@ -148,6 +174,10 @@ const Questions = ({ test }) => {
         setFile(e.target.files[0])
       }
 
+      const viewResult = () => {
+        history.push({pathname:'/studentresult', state:{test} })
+      }
+
 
   
   return (
@@ -193,10 +223,15 @@ const Questions = ({ test }) => {
 
 
       <Button fluid basic size='medium' corner='right' color="black" onClick={handleStartTest}>
-        {test.starttest ? <p>Click to STOP the test!</p>: <p> Click to START the test!</p>}
+         <p>Click to {start} the test!</p>
     <TeacherClock   />
       </Button>
-
+      
+      <div style={{textAlign:'center', marginTop:'10px'}}>
+      
+  
+      
+      </div>
 
 
 

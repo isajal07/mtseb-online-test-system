@@ -73,7 +73,7 @@ function SHomePage() {
           </Message>}
                   {loading ? (
                     <p>Loading....</p>
-                    ) : test ? (
+                    ) : test !== undefined ? (
                       test.starttest === true ? (
                         // <Test test={test} />
                         <Segment style={{fontSize:'16px'}}>

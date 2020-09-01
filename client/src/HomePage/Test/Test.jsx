@@ -101,18 +101,17 @@ export default function Test (props)  {
     const lengthoftest = test.test.answers
    
 
-    // setTimeout(()=>{
+    setTimeout(()=>{
             
         
-    //         dispatch(testActions.submitScore(testId,total,score))
-    //         history.push({pathname:'/result', state:{teacher,subject,classNo,questions ,rightAnswers, yourAns} })
-    //         console.log('Test Submitted?',testSubmitted)
+            dispatch(testActions.submitScore(testId,total,score))
+            history.push({pathname:'/result', state:{teacher,subject,classNo,questions ,rightAnswers, yourAns} })
+            console.log('Test Submitted?',testSubmitted)
 
     
-    // },15000 )
+    },15000 )
 
         
-    // const childRef = useRef()
 
     
 
@@ -164,7 +163,7 @@ export default function Test (props)  {
                             isActive === false ?
                                 <div>
                                     <Endtest wrongAnswers={wrongAnswers}
-                            questions={quiz} test={test} yourAnswer={answers} ref={childRef}/>
+                            questions={quiz} test={test} yourAnswer={answers} />
                                     
                                 </div> : null
                         }

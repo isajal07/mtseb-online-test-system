@@ -16,6 +16,7 @@ import Test from '../HomePage/Test/Test'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 import './App.css'
+import ResultTable from '../HomePage/ResultTable';
 
 function App() {
     
@@ -29,7 +30,8 @@ function App() {
                             <PrivateRoute exact path="/shome" component={SHomePage}/>
                             <PrivateRoute exact path="/stest" component={Test}/>
                             <PrivateRoute exact path='/result' component={TestResult}/>
-
+                            <PrivateRoute exact path='/studentresult'
+                            component={ResultTable}/>
                             <Route path="/login" component={LoginPage} />
                             <Route path="/slogin" component={SLoginPage}/>
                             <Route path="/register" component={RegisterPage} />

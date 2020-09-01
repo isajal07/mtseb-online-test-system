@@ -142,8 +142,6 @@ router.delete('/:tid/:qid',  authorize('teacher'), async (req,res) => {
 })  
 
 
-
-
     //@route GET api/test/all
 //@desc Get all test
 //@access Private

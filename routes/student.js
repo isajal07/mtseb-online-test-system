@@ -128,6 +128,24 @@ router.get('/all',authorize('teacher'),async (req,res,next) => {
     res.status(500).send('Server Error!')
   }
 })
+
+//@route GET api/students/online
+//@desc Display online the student
+//@access Private
+router.get('/online',authorize('teacher'),async (req,res,next) => {
+  try{
+    
+    const students = await Student.find()
+    const onlineStudents = students.filter(a=>a.isOnline === true)
+    res.json(onlineStudents)
+    // console.log(students.map(a=>a.name))
+  } catch(err) {
+    console.log(err.message)
+    res.status(500).send('Server Error!')
+  }
+})
+
+
 //@route PUT api/students
 //@desc Change the online status.
 //@access Private
