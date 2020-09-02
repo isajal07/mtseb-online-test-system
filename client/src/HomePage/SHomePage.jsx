@@ -11,6 +11,7 @@ import Test from "./Test/Test";
 
 import { NavBar, Footer } from "../_components";
 import { StudentClock1 } from "../CreateTestPage/StartClock";
+import TestRules from "./TestRules";
 
 function SHomePage() {
   const [loading, setLoading] = useState(
@@ -25,8 +26,13 @@ function SHomePage() {
 
   const dispatch = useDispatch();
 
+
+  
   useEffect(() => {
+    
     dispatch(testActions.getTestByClass(classNo));
+    setInterval(()=>dispatch(testActions.getTestByClass(classNo)),8000)
+    
     setLoading(false);
   }, []);
 
@@ -80,12 +86,15 @@ function SHomePage() {
                       </Grid>
                     </Segment>
                   ) : (
-                    <p>
-                      Test is ready! Please wait until teacher starts the test!
-                    </p>
+                    <>
+                    <h3>
+                      Test is ready!<br/> Please wait until teacher starts the test.
+                    </h3>
+                    <TestRules/>
+                    </>
                   )
                 ) : (
-                  <p>No test at the moment.</p>
+                  <h3>No test at the moment.</h3>
                 )}
               </Segment>
             </Grid.Column>

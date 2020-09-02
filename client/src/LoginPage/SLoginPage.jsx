@@ -16,10 +16,9 @@ function SLoginPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    history.listen((location, action) => {
+    setInterval(()=>dispatch(alertActions.clear()),3000)
       // clear alert on location change
-      dispatch(alertActions.clear());
-    });
+  
   }, []);
 
   const [inputs, setInputs] = useState({

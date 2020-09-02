@@ -104,7 +104,7 @@ router.delete('/:tid/:qid',  authorize('teacher'), async (req,res) => {
     const question = test.questions.find(
       test => test.id === req.params.qid 
     ) 
-    console.log(question.id)
+
     
       //Make sure question exists
       if(!question) {
@@ -244,8 +244,6 @@ router.post('/answer/:tid',  authorize(), async (req,res) => {
   try {
     const student = await Student.findById(req.user.id)
     const test = await Test.findById(req.params.tid)
-
-    console.log(student.name)
     
     const newScore = {
       student:req.user.id,
@@ -255,8 +253,6 @@ router.post('/answer/:tid',  authorize(), async (req,res) => {
       score:req.body.score,
       total:req.body.total
     }
-    
-    console.log(!test.answers.some(a=>a.name === student.name))
    
     if(test.answers.some(a=>a.name === student.name)){
      return res.status(500).json('Duplicate value')

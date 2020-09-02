@@ -122,9 +122,7 @@ router.get('/all', authorize('teacher'), async (req, res, next) => {
 
     const students = await Student.find()
     res.json(students)
-    // console.log(students.map(a=>a.name))
   } catch (err) {
-    console.log(err.message)
     res.status(500).send('Server Error!')
   }
 })
@@ -138,9 +136,7 @@ router.get('/online', authorize('teacher'), async (req, res, next) => {
     const students = await Student.find()
     const onlineStudents = students.filter(a => a.isOnline === true)
     res.json(onlineStudents)
-    // console.log(students.map(a=>a.name))
   } catch (err) {
-    console.log(err.message)
     res.status(500).send('Server Error!')
   }
 })

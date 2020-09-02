@@ -24,7 +24,7 @@ class Clock extends Component {
 class Input extends Component {
   onSubmit(event) {
     event.preventDefault();
-    this.props.onSetCountdown(parseInt(15, 10)); //No of seconds to changeeeee
+    this.props.onSetCountdown(parseInt(300, 10)); //No of seconds to changeeeee
   }
 
   render() {
@@ -48,7 +48,7 @@ export class TeacherClock extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 15, //initial count to changeeeee
+      count: 300, //initial count to changeeeee
       running: false,
     };
   }
@@ -107,7 +107,7 @@ export class StudentClock1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 15, //initial count to changeeeee
+      count: 300, //initial count to changeeeee
       running: false,
     };
   }
@@ -146,7 +146,7 @@ export class StudentClock1 extends Component {
 
   componentDidMount() {
     this.setState({
-      count: 15,
+      count: 300,
       running: true,
     });
   }
@@ -167,7 +167,7 @@ export class StudentClock extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 13, //initial count to changeeeee
+      count: 297, //initial count to changeeeee
       running: false,
     };
   }
@@ -206,7 +206,7 @@ export class StudentClock extends Component {
 
   componentDidMount() {
     this.setState({
-      count: 13,
+      count: 297,
       running: true,
     });
   }

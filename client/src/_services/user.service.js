@@ -2,7 +2,8 @@ import config from 'config';
 import { authHeader } from '../_helpers';
 import axios from 'axios'
 import { saveAs } from 'file-saver';
-
+import { alertActions } from './';
+import { useDispatch } from "react-redux";
 
 export const userService = {
     login,
@@ -221,13 +222,17 @@ function teacherCard(data) {
 
 
 function handleResponse(response) {
+    
     return response.text().then(text => {
         const data = text && JSON.parse(text);
         if (!response.ok) {
             if (response.status === 401) {
+                const dispatch = useDispatch();
+
                 // auto logout if 401 response returned from api
                 logout();
                 location.reload(true);
+                dispact(alertActions.clear)
             }
 
             const error = Object.values(data) || response.statusText;

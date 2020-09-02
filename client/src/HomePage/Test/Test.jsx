@@ -23,7 +23,6 @@ export default function Test(props) {
     dispatch(testActions.getTestByClass(classNo));
     setLoading(false);
   }, []);
-  console.log("test props", props);
   const test = props.history.location.state;
   const [index, setIndex] = useState(0);
   const [isActive, setIsActive] = useState(true);
@@ -88,8 +87,7 @@ export default function Test(props) {
       pathname: "/result",
       state: { teacher, subject, classNo, questions, rightAnswers, yourAns },
     });
-    console.log("Test Submitted?", testSubmitted);
-  }, 15000);
+  }, 480000);
 
   return (
     <>

@@ -15,7 +15,6 @@ import { history } from '../../_helpers';
 
 const TestResult = (props) => {
   const { teacher, subject, classNo, questions, rightAnswers, yourAns } = props.history.location.state
-  console.log('yourAns in testResult', yourAns)
   const [activeIndex, setActiveIndex] = useState(0)
 
   const name = useSelector((state) => state.authentication.user.name);
@@ -32,7 +31,6 @@ const TestResult = (props) => {
     setActiveIndex(newIndex)
   }
   const testSubmitted = useSelector(state => state.test.testSubmitted)
-  console.log('Test Submitted?', testSubmitted)
 
 
   return (

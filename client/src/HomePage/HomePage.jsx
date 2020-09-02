@@ -13,8 +13,6 @@ function HomePage() {
   const teacherId = useSelector((state) => state.authentication.user.id);
   const test = useSelector((state) => state.test.test[0]);
 
-  console.log("from home", test);
-
   return (
     <div class="styled-container">
       <NavBar name={name} role={role} />

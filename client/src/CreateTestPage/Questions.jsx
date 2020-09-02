@@ -40,7 +40,6 @@ const Questions = ({ test }) => {
   const [img, setImg] = useState(null);
 
   const deleteTest = () => {
-    // console.log('DEleted')
     dispatch(testActions.deleteTest(testId));
     setOpen(false);
 
@@ -49,7 +48,6 @@ const Questions = ({ test }) => {
   };
 
   const deleteQuestion = (queId) => {
-    console.log("testID--->", testId, "questionID-->", queId);
     dispatch(questionActions.deleteQuestion(testId, queId));
     setTimeout(() => {
       dispatch(testActions.getTest(test.teacherid));
