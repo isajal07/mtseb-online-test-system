@@ -31,7 +31,7 @@ function SHomePage() {
   useEffect(() => {
     
     dispatch(testActions.getTestByClass(classNo));
-    setInterval(()=>dispatch(testActions.getTestByClass(classNo)),8000)
+    setInterval(()=>dispatch(testActions.getTestByClass(classNo)),15000)
     
     setLoading(false);
   }, []);

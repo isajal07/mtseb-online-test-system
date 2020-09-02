@@ -2,8 +2,6 @@ import config from 'config';
 import { authHeader } from '../_helpers';
 import axios from 'axios'
 import { saveAs } from 'file-saver';
-import { alertActions } from './';
-import { useDispatch } from "react-redux";
 
 export const userService = {
     login,

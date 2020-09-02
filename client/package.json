@@ -52,5 +52,6 @@
   },
   "homepage": "https://github.com/cornflourblue/react-hooks-redux-registration-login-example#readme",
   "main": "webpack.config.js",
-  "author": ""
+  "author": "",
+  "proxy": "http://localhost:5000"
 }
