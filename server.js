@@ -10,7 +10,6 @@ const errorHandler = require("./_helpers/error-handler");
 const path = require('path')
 const app = express();
 require("dotenv").config();
-const proxy = require('http-proxy-middleware')
 
 
 if(process.env.NODE_ENV === 'production') {
@@ -24,7 +23,6 @@ app.get('*', (req, res) => {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-app.use(proxy(['/api' ], { target: 'http://localhost:5000' }));
 
 // global error handler
 app.use(errorHandler);
