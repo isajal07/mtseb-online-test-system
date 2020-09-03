@@ -44,10 +44,11 @@ function login(username, password) {
 //Get online students
 function getOnlineStudents() {
     const requestOptions = {
+        method: 'GET',
         headers: { ...authHeader(), 'Content-Type': 'application/json','Accept': 'application/json'}
     };
 
-    return axios.get('https://mtseb-online-test-system.herokuapp.com/api/students/online', requestOptions)
+    return fetch('https://mtseb-online-test-system.herokuapp.com/api/students/online', requestOptions)
         .then(handleResponse)
 }
 
@@ -235,7 +236,7 @@ function handleResponse(response) {
             return Promise.reject(error);
         }
 
-        return data;
+        return data.json();
     });
 }
 
