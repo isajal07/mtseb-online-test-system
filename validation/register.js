@@ -14,9 +14,7 @@ module.exports = function validateRegisterInput(data) {
   if (!Validator.isLength(data.name, { min: 2, max: 30 })) {
     errors.name = 'Name must be between 2 and 30 characters';
   }
-  if (!Validator.isAlpha(data.name)) {
-    errors.name = 'Only alpabets are allowed for name.';
-  }
+s
   if (!Validator.isAlphanumeric(data.username)) {
     errors.username = 'Only alpabets or numbers are allowed for username.';
   }
