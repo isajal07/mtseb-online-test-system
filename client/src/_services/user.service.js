@@ -222,7 +222,7 @@ function teacherCard(data) {
 function handleResponse(response) {
     
     return response.text().then(text => {
-        const data = text && JSON.parse(text);
+        const data = text && JSON.parse(text).json();
         if (!response.ok) {
             if (response.status === 401) {
 
