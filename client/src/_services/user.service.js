@@ -25,14 +25,14 @@ export const userService = {
 //Teacher's login
 function login(username, password) {
     const requestOptions = {
-        // method: 'POST',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json','Accept': 'application/json'
     },
         body: JSON.stringify({ username, password })
     };
 
-    return axios.post('https://mtseb-online-test-system.herokuapp.com/api/teachers/login', requestOptions)
-        // .then(handleResponse)
+    return fetch('https://mtseb-online-test-system.herokuapp.com/api/teachers/login', requestOptions)
+        .then(handleResponse)
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('user', JSON.stringify(user));
