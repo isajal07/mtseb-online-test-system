@@ -32,7 +32,7 @@ function SHomePage() {
     
     dispatch(testActions.getTestByClass(classNo));
     setInterval(()=>dispatch(testActions.getTestByClass(classNo)),15000)
-    
+  
     setLoading(false);
   }, []);
 
@@ -40,7 +40,7 @@ function SHomePage() {
     dispatch(userActions.isOnline(true));
     history.listen((location, action) => {
       // clear alert on location change
-      dispatch(alertActions.clear());
+      // dispatch(alertActions.clear());
     });
   }, []);
 
