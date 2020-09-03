@@ -12,14 +12,7 @@ const app = express();
 require("dotenv").config();
 
 
-if(process.env.NODE_ENV === 'production') {
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json());
-  app.use(express.static('client/dist'))
 
-app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
-    })}
 
 //Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,6 +21,8 @@ app.use(cors());
 
 // global error handler
 app.use(errorHandler);
+
+
 
 //DB Config
 const db = require("./config/key").mongoURI;
@@ -45,6 +40,13 @@ app.use("/api/teachers", teachers);
 app.use("/api/test", test);
 app.use("/api/students", students);
 app.use("/api/filedownload", filedownload);
+
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/dist'))
+
+app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
+    })}
 
 const port = process.env.PORT || 5000;
 
