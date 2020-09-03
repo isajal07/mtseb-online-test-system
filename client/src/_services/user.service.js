@@ -115,7 +115,7 @@ function sregister(user) {
 function getTest(teacherId) {
     const requestOptions = {
         method: 'GET',
-        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        headers: { ...authHeader(), 'Content-Type': 'application/json','Accept': 'application/json' },
         // body: JSON.stringify({ subject, classNo })
     };
     return fetch(`https://mtseb-online-test-system.herokuapp.com/api/test/t/${teacherId}`, requestOptions).then(handleResponse)
@@ -136,7 +136,7 @@ function getTestByClass(classNo) {
 function createTest(subject, classNo) {
     const requestOptions = {
         method: 'POST',
-        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        headers: { ...authHeader(), 'Content-Type': 'application/json','Accept': 'application/json' },
         body: JSON.stringify({ subject, classNo })
     };
 
@@ -225,12 +225,10 @@ function handleResponse(response) {
         const data = text && JSON.parse(text);
         if (!response.ok) {
             if (response.status === 401) {
-                const dispatch = useDispatch();
 
                 // auto logout if 401 response returned from api
                 logout();
                 location.reload(true);
-                dispact(alertActions.clear)
             }
 
             const error = Object.values(data) || response.statusText;
