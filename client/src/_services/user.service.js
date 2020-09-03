@@ -26,7 +26,8 @@ export const userService = {
 function login(username, password) {
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json','Accept': 'application/json'
+    },
         body: JSON.stringify({ username, password })
     };
 
@@ -44,7 +45,7 @@ function login(username, password) {
 function getOnlineStudents() {
     const requestOptions = {
         method: 'GET',
-        headers: { ...authHeader(), 'Content-Type': 'application/json' }
+        headers: { ...authHeader(), 'Content-Type': 'application/json','Accept': 'application/json'}
     };
 
     return fetch('https://mtseb-online-test-system.herokuapp.com/api/students/online', requestOptions)
@@ -55,7 +56,7 @@ function getOnlineStudents() {
 function isOnline(online) {
     const requestOptions = {
         method: 'PUT',
-        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        headers: { ...authHeader(), 'Content-Type': 'application/json','Accept': 'application/json' },
     };
 
     return fetch(`https://mtseb-online-test-system.herokuapp.com/api/students/${online}`, requestOptions)
@@ -68,7 +69,7 @@ function isOnline(online) {
 function slogin(classNo, roll, password) {
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json','Accept': 'application/json' },
         body: JSON.stringify({ classNo, roll, password })
     };
 
@@ -223,6 +224,7 @@ function handleResponse(response) {
     
     return response.text().then(text => {
         const data = text && JSON.parse(text)
+        const datas = data.json()
         if (!response.ok) {
             if (response.status === 401) {
 
@@ -231,11 +233,11 @@ function handleResponse(response) {
                 location.reload(true);
             }
 
-            const error = Object.values(data) || response.statusText;
+            const error = Object.values(datas) || response.statusText;
             return Promise.reject(error);
         }
 
-        return data.json();
+        return datas;
     });
 }
 
