@@ -224,7 +224,6 @@ function handleResponse(response) {
     
     return response.text().then(text => {
         const data = text && JSON.parse(text)
-        const datas=data.json()
         if (!response.ok) {
             if (response.status === 401) {
 
@@ -233,11 +232,11 @@ function handleResponse(response) {
                 location.reload(true);
             }
 
-            const error = Object.values(datas) || response.statusText;
+            const error = Object.values(data) || response.statusText;
             return Promise.reject(error);
         }
 
-        return datas
+        return data
     });
 }
 
